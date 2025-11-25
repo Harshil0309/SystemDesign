@@ -1,5 +1,3 @@
-# https://medium.com/@prashant558908/low-level-design-of-a-parking-lot-in-python-using-strategy-design-pattern-2d0ca9a1c8d1
-# https://chatgpt.com/share/6925ba0d-4fac-8000-8c33-d0020a888223
 class ParkingSpot:
     def __init__(self,spot_id:str,vehicle_type:int):
         self.spot_id=spot_id
@@ -188,6 +186,9 @@ if __name__=="__main__":
     print("Search:", sol.search_vehicle("2ndvehicle"))
     print("Remove success:", sol.remove_vehicle(spot))
     print("Free spots floor0 2-wheeler:", sol.get_free_spots_count(0,2))
+    # https://medium.com/@prashant558908/low-level-design-of-a-parking-lot-in-python-using-strategy-design-pattern-2d0ca9a1c8d1
+    # https://chatgpt.com/share/6925ba0d-4fac-8000-8c33-d0020a888223
+
     
 
 
