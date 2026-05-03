@@ -16,11 +16,11 @@ public class RiderService{
 
     public String createRider(String name,String contact){
         if(!isInputValid(name,contact)){
-            return "Details are missing";
+            throw new IllegalArgumentException("Details are missing");
         }
         Rider exists = this.riderRepository.getRiderByContact(contact);
         if(exists != null){
-            return "Rider already exists";
+            throw new IllegalArgumentException("Rider already exists");
         }
         String id=UUID.randomUUID().toString();
         Rider rider=new Rider(id,name,contact);
@@ -31,17 +31,17 @@ public class RiderService{
     public String assignRider(String orderId){
         Rider rider=this.riderRepository.getAvailableRider();
         if(rider==null){
-            return "No available riders";
+            throw new IllegalStateException("No available riders");
         }
         rider.assignOrder(orderId);
         this.riderRepository.save(rider);
-        return "Rider assigned successfully.";
+        return rider.getId();
     }
 
     public String completeDelivery(String orderId){
         Rider rider=this.riderRepository.getRiderByOrderId(orderId);
         if(rider==null){
-            return "Order was never assigned";
+            throw new IllegalStateException("Order was never assigned");
         }
         rider.completeOrder();
         this.riderRepository.save(rider);

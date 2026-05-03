@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class UserRepository {
     private Map<String, User> userStore = new HashMap<>();
     
@@ -27,7 +29,7 @@ public class UserRepository {
         return null;
     }
 
-    public void delete(String userId) {
+    public void deleteUser(String userId) {
         userStore.remove(userId);
     }
 }

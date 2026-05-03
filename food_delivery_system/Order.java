@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Order{
     private String id;
     private List<OrderItem>items;
@@ -18,44 +20,43 @@ public class Order{
     }
 
 
+    public String getId(){
+        return this.id;
+    }
 
     public void acceptOrder() {
         if (this.status != OrderStatus.CREATED) {
-            System.out.println("Order can only be accepted from CREATED state");
-            return;
+            throw new IllegalStateException("Order can only be accepted from CREATED state");
         }
         this.status = OrderStatus.ACCEPTED;
     }
 
     public void startPreparing() {
         if (this.status != OrderStatus.ACCEPTED) {
-            System.out.println("Order must be ACCEPTED first");
-            return;
+            throw new IllegalStateException("Order must be ACCEPTED first");
         }
         this.status = OrderStatus.PREPARING;
     }
 
     public void outForDelivery() {
         if (this.status != OrderStatus.PREPARING) {
-            System.out.println("Order must be PREPARING first");
-            return;
+            throw new IllegalStateException("Order must be PREPARING first");
         }
         this.status = OrderStatus.OUTFORDELIVERY;
     }
 
     public void markDelivered() {
         if (this.status != OrderStatus.OUTFORDELIVERY) {
-            System.out.println("Order must be OUT_FOR_DELIVERY first");
-            return;
+            throw new IllegalStateException("Order must be OUT_FOR_DELIVERY first");
         }
         this.status = OrderStatus.DELIVERED;
     }
 
     public void rejectOrder(){
         if(this.status!=OrderStatus.CREATED){
-            System.out.println("Order cannot be cancelled now");
-            return;
+            throw new IllegalStateException("Order cannot be cancelled now");
         }
+        this.status=OrderStatus.REJECTED;
     }
 
     public void assignRider(String riderId) {

@@ -21,10 +21,10 @@ public class UserService{
     public String createUser(String name,String address,String contact){
 
         if(!isInputValid(name,address,contact)){
-            return "Input details are missing";
+            throw new IllegalArgumentException("Input details are missing");
         }
         if(!isContactUnique(contact)){
-            return "Contact already exist";
+            throw new IllegalArgumentException("Contact already exist");
         }
 
         String userID = UUID.randomUUID().toString();
@@ -36,16 +36,16 @@ public class UserService{
 
     public String updateDetails(String userID,String name,String address,String contact){
         if(!isInputValid(name,address,contact)){
-            return "Input details are missing";
+            throw new IllegalArgumentException("Input details are missing");
         }
         User existingUser=this.userRepository.getUserByContact(contact);
-        if(existingUser!=null && existingUser.getId=userID){
-            return "Contact already exist";
+        if(existingUser!=null && !existingUser.getId().equals(userID)){
+            throw new IllegalArgumentException("Contact already exist");
         }
 
         User user=this.userRepository.getUser(userID);
         if(user==null) {
-            return "User doesnt exist";
+            throw new IllegalArgumentException("User doesnt exist");
         }
         user.updateName(name);
         user.updateAddress(address);
@@ -57,11 +57,11 @@ public class UserService{
      
     public String deleteUser(String id){
         if(id.length()==0){
-            return "User details empty";
+            throw new IllegalArgumentException("User details empty");
         }
         User user= this.userRepository.getUser(id);
         if(user==null){
-            return "User doesnt exist";
+            throw new IllegalArgumentException("User doesnt exist");
         }
         this.userRepository.deleteUser(id);
         return "User deleted successfully";
@@ -69,3 +69,6 @@ public class UserService{
 
 
 }
+
+
+
