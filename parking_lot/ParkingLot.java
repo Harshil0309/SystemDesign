@@ -26,6 +26,7 @@ public class ParkingLot {
         if (availableSpots.size() == 0) {
             System.out.println("No available spot");
         } 
+        return null;
 
     }
 
